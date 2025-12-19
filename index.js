@@ -24,29 +24,19 @@ function displayPosts(posts) {
   });
 }
 
-// Function to get a random subset of posts
-function getRandomPosts(allPosts, numberOfPosts) {
-  const shuffled = allPosts.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, numberOfPosts);
-}
-
 // Async function to fetch posts from API
 async function fetchPosts() {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
 
-    // Check if the response is ok
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const posts = await response.json();
 
-    // Get 5 random posts
-    const randomPosts = getRandomPosts(posts, 5);
-
-    // Display the random posts
-    displayPosts(randomPosts);
+    // Display all posts (in order)
+    displayPosts(posts);
   } catch (error) {
     console.error('Error fetching posts:', error);
   }
